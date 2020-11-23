@@ -1,0 +1,14 @@
+Input data format:
+Nr	X	Y	H
+
+Create output .txt files based on input .txt data:
+1) Consisting height measured (IS11.H.09 or similar format - ".H." matching pattern) in format:
+H 	X	Y	H
+
+2) Consisting all points measured (both IS11.H.09 and IS11.O.17 - ".H." and ".O." matching pattern) in format:
+X	Y	H
+
+4) Consisting names of points measured (both IS11.H.09 and IS11.O.17 - ".H." and ".O." matching pattern) in format:
+Nr	X	Y	H
+
+All other measurements not matching above patterns are redundant - those are not required in output (e.g. Z.PP2.04, TPS0001, RL1, etc.)

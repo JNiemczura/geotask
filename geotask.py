@@ -35,20 +35,43 @@ def createSimplifiedFiles(Path, listOfStrings):
     Nr	X	Y	H """
 
     """ Regex objects for searching through files (to be simplified) """
-    heightMeasuredRegex = re.compile(r'IS11\.H\.\d+ (\d+\.\d+) (\d+\.\d+) (\d+\.\d+)')
-    allMeasuredRegex = re.compile(r'(IS11\.H\.\d+|IS11\.O\.\d+) (\d+\.\d+) (\d+\.\d+) (\d+\.\d+)')
+    # heightMeasuredRegex = re.compile(r'IS11\.H\.\d+ (\d+\.\d+) (\d+\.\d+) (\d+\.\d+)')
+    allMeasuredRegex = re.compile(r'(.*\.H\.\d+|.*\.O\.\d+) (\d+\.\d+) (\d+\.\d+) (\d+\.\d+)')
 
     
     heightMeasured = open('HeightMeasured.txt', 'w')
     for line in listOfStrings:
-        matchingObjects = heightMeasuredRegex.findall(line)
-        print(matchingObjects)
+        matchingObjects = allMeasuredRegex.findall(line)
         if matchingObjects != []:
-            X = matchingObjects[0][0]
-            Y = matchingObjects[0][1]
-            H = matchingObjects[0][2]
-            heightMeasured.write(H + ' ' + X + ' ' + Y + ' ' + H +'\n')
+            X = matchingObjects[0][1]
+            Y = matchingObjects[0][2]
+            H = matchingObjects[0][3]
+            heightMeasured.write(H + '\t' + X + '\t' + Y + '\t' + H +'\n')
     heightMeasured.close()
+
+    allPointsMeasured = open('AllPointsMeasured.txt', 'w')
+    for line in listOfStrings:
+        matchingObjects = allMeasuredRegex.findall(line)
+        if matchingObjects != []:
+            X = matchingObjects[0][1]
+            Y = matchingObjects[0][2]
+            H = matchingObjects[0][3]
+            allPointsMeasured.write(X + '\t' + Y + '\t' + H +'\n')
+    allPointsMeasured.close()
+
+    namesPointsMeasured = open('NamesPointsMeasured.txt', 'w')
+    for line in listOfStrings:
+        matchingObjects = allMeasuredRegex.findall(line)
+        if matchingObjects != []:
+            number = matchingObjects[0][0]
+            X = matchingObjects[0][1]
+            Y = matchingObjects[0][2]
+            H = matchingObjects[0][3]
+            namesPointsMeasured.write(number + '\t' + X + '\t' + Y + '\t' + H +'\n')
+    namesPointsMeasured.close()
+
+    return print('All files saved successfully.')
+
 
 userPath = inputFilePath()
 textList = openFile(userPath)

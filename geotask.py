@@ -34,14 +34,15 @@ def createSimplifiedFiles(Path, listOfStrings):
     4) Consisting of names of points measured (both IS11.H.09 and IS11.O.17 - ".H." and ".O." matching pattern) in format:
     Nr	X	Y	H """
 
-    """ Regex objects for searching through files (to be simplified) """
-    # heightMeasuredRegex = re.compile(r'IS11\.H\.\d+ (\d+\.\d+) (\d+\.\d+) (\d+\.\d+)')
+    """ Regex object for searching through files """
     allMeasuredRegex = re.compile(r'(.*\.H\.\d+|.*\.O\.\d+) (\d+\.\d+) (\d+\.\d+) (\d+\.\d+)')
 
-    #TRY OPENING ALL 3 FILES FIRST, THEN WHEN LOOPING ADDING STUFF TO ALL 3 OF THEM :)
+    """ Create & open all docs in order to modify them """
     heightMeasured = open('HeightMeasured.txt', 'w')
     allPointsMeasured = open('AllPointsMeasured.txt', 'w')
     namesPointsMeasured = open('NamesPointsMeasured.txt', 'w')
+
+    """ For loop going through each line of opened file, modifying opened files with required data """
     for line in listOfStrings:
         matchingObjects = allMeasuredRegex.findall(line)
         if matchingObjects != []:

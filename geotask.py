@@ -38,27 +38,9 @@ def createSimplifiedFiles(Path, listOfStrings):
     # heightMeasuredRegex = re.compile(r'IS11\.H\.\d+ (\d+\.\d+) (\d+\.\d+) (\d+\.\d+)')
     allMeasuredRegex = re.compile(r'(.*\.H\.\d+|.*\.O\.\d+) (\d+\.\d+) (\d+\.\d+) (\d+\.\d+)')
 
-    
+    #TRY OPENING ALL 3 FILES FIRST, THEN WHEN LOOPING ADDING STUFF TO ALL 3 OF THEM :)
     heightMeasured = open('HeightMeasured.txt', 'w')
-    for line in listOfStrings:
-        matchingObjects = allMeasuredRegex.findall(line)
-        if matchingObjects != []:
-            X = matchingObjects[0][1]
-            Y = matchingObjects[0][2]
-            H = matchingObjects[0][3]
-            heightMeasured.write(H + '\t' + X + '\t' + Y + '\t' + H +'\n')
-    heightMeasured.close()
-
     allPointsMeasured = open('AllPointsMeasured.txt', 'w')
-    for line in listOfStrings:
-        matchingObjects = allMeasuredRegex.findall(line)
-        if matchingObjects != []:
-            X = matchingObjects[0][1]
-            Y = matchingObjects[0][2]
-            H = matchingObjects[0][3]
-            allPointsMeasured.write(X + '\t' + Y + '\t' + H +'\n')
-    allPointsMeasured.close()
-
     namesPointsMeasured = open('NamesPointsMeasured.txt', 'w')
     for line in listOfStrings:
         matchingObjects = allMeasuredRegex.findall(line)
@@ -67,7 +49,11 @@ def createSimplifiedFiles(Path, listOfStrings):
             X = matchingObjects[0][1]
             Y = matchingObjects[0][2]
             H = matchingObjects[0][3]
+            heightMeasured.write(H + '\t' + X + '\t' + Y + '\t' + H +'\n')
+            allPointsMeasured.write(X + '\t' + Y + '\t' + H +'\n')
             namesPointsMeasured.write(number + '\t' + X + '\t' + Y + '\t' + H +'\n')
+    heightMeasured.close()
+    allPointsMeasured.close()
     namesPointsMeasured.close()
 
     return print('All files saved successfully.')
